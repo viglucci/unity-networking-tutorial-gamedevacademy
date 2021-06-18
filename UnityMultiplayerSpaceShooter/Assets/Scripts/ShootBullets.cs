@@ -7,7 +7,7 @@ public class ShootBullets : NetworkBehaviour
 
     [SerializeField] private float bulletSpeed;
 
-    void Update()
+    private void Update()
     {
         if (isLocalPlayer && Input.GetKeyDown(KeyCode.Space))
         {
@@ -16,9 +16,9 @@ public class ShootBullets : NetworkBehaviour
     }
 
     [Command]
-    void CmdShoot()
+    private void CmdShoot()
     {
-        GameObject bullet = Instantiate(bulletPrefab, this.transform.position, Quaternion.identity);
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         bullet.GetComponent<Rigidbody2D>().velocity = Vector2.up * bulletSpeed;
         NetworkServer.Spawn(bullet);
         Destroy(bullet, 1.0f);

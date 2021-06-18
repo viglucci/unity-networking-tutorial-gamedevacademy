@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,8 @@ public class ReceiveDamage : NetworkBehaviour
     [SerializeField]
     private int maxHealth = 10;
 
-    [SyncVar]
-    private int currentHealth;
+    [SyncVar(hook = nameof(SetHealth))]
+    private int _currentHealth;
 
     [SerializeField]
     private string enemyTag;
@@ -17,48 +18,69 @@ public class ReceiveDamage : NetworkBehaviour
     [SerializeField]
     private bool destroyOnDeath;
 
-    private Vector2 initialPosition;
+    [SerializeField]
+    private HealthBar healthBar;
+    
+    private Vector2 _initialPosition;
+    private bool _hasHealthBar;
 
     // Use this for initialization
-    void Start () 
+    private void Awake()
     {
-        this.currentHealth = this.maxHealth;
-        this.initialPosition = this.transform.position;
+        _hasHealthBar = healthBar != null;
     }
 
-    void OnTriggerEnter2D (Collider2D collider) 
+    private void Start () 
     {
-        if(collider.tag == this.enemyTag) 
+        _currentHealth = maxHealth;
+        _initialPosition = transform.position;
+        if (_hasHealthBar)
         {
-            this.TakeDamage(1);
-            Destroy(collider.gameObject);
+            healthBar.SetMaxHealth(_currentHealth);
         }
     }
 
-    void TakeDamage (int amount) 
+    private void OnTriggerEnter2D (Collider2D triggeredCollider) 
     {
-        if(this.isServer) 
+        if(triggeredCollider.CompareTag(enemyTag)) 
         {
-            this.currentHealth -= amount;
+            TakeDamage(1);
+            Destroy(triggeredCollider.gameObject);
+        }
+    }
 
-            if(this.currentHealth <= 0) 
+    private void TakeDamage (int amount) 
+    {
+        if(isServer) 
+        {
+            _currentHealth -= amount;
+
+            if(_currentHealth <= 0) 
             {
-                if(this.destroyOnDeath) 
+                if(destroyOnDeath) 
                 {
-                    Destroy(this.gameObject);
+                    Destroy(gameObject);
                 } 
                 else 
                 {
-                    this.currentHealth = this.maxHealth;
+                    _currentHealth = maxHealth;
                     RpcRespawn();
                 }
             }
         }
     }
 
-    [ClientRpc]
-    void RpcRespawn () 
+    private void SetHealth(int oldHealth, int newHealth)
     {
-        this.transform.position = this.initialPosition;
+        if (_hasHealthBar)
+        {
+            healthBar.SetHealth(newHealth);
+        }
+    }
+
+    [ClientRpc]
+    private void RpcRespawn () 
+    {
+        transform.position = _initialPosition;
     }
 }

@@ -11,14 +11,14 @@ public class SpawnEnemies : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        InvokeRepeating("SpawnEnemy", this.spawnInterval, this.spawnInterval);
+        InvokeRepeating("SpawnEnemy", spawnInterval, spawnInterval);
     }
 
-    void SpawnEnemy()
+    private void SpawnEnemy()
     {
-        Vector2 spawnPosition = new Vector2(Random.Range(-4.0f, 4.0f), this.transform.position.y);
+        Vector2 spawnPosition = new Vector2(Random.Range(-4.0f, 4.0f), transform.position.y);
         GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity) as GameObject;
-        enemy.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, -this.enemySpeed);
+        enemy.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, -enemySpeed);
         NetworkServer.Spawn(enemy);
         Destroy(enemy, 10);
     }

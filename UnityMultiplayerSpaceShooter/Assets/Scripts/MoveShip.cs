@@ -11,11 +11,10 @@ public class MoveShip : NetworkBehaviour
         _rigidBody = GetComponent<Rigidbody2D>();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (!isLocalPlayer) return;
         var movement = Input.GetAxis("Horizontal");
-        print(movement);
         _rigidBody.velocity = new Vector2(movement * speed, 0.0f);
     }
 }
