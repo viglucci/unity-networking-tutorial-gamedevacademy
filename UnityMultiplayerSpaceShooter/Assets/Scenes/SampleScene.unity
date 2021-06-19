@@ -380,7 +380,7 @@ MonoBehaviour:
   PersistNetworkManagerToOfflineScene: 0
   runInBackground: 1
   autoStartServerBuild: 1
-  serverTickRate: 30
+  serverTickRate: 60
   serverBatching: 1
   serverBatchInterval: 0
   offlineScene: 
@@ -406,7 +406,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784764000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.47793686, y: -0.022568118, z: -0.09202499}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -577,8 +577,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   enemyPrefab: {fileID: 6001509722755346495, guid: 733af247925df7e4fb518652fd082d1c, type: 3}
-  spawnInterval: 3
-  enemySpeed: 5
+  spawnInterval: 5
+  enemySpeed: 2
 --- !u!114 &1399130981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,7 +663,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6878596278380164817, guid: 3e2108d1d3254e34d984de8433485c5b, type: 3}
       propertyPath: m_Name
-      value: SpawnPoint2
+      value: PlayerSpawnPoint2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e2108d1d3254e34d984de8433485c5b, type: 3}
@@ -720,7 +720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6878596278380164817, guid: 3e2108d1d3254e34d984de8433485c5b, type: 3}
       propertyPath: m_Name
-      value: SpawnPoint1
+      value: PlayerSpawnPoint1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e2108d1d3254e34d984de8433485c5b, type: 3}
