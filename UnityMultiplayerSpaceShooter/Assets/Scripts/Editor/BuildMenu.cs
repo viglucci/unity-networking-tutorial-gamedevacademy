@@ -8,7 +8,9 @@ namespace Editor
     {
         private static readonly string[] Scenes =
         {
-            "Assets/Scenes/CombatScene.unity"
+            "Assets/Scenes/OfflineScene.unity",
+            "Assets/Scenes/RoomScene.unity",
+            "Assets/Scenes/GameScene.unity"
         };
 
         [MenuItem("Build/Build All")]
